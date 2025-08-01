@@ -1,15 +1,15 @@
 package com.lsn.board.controller;
 
 import com.lsn.board.model.Board;
+import com.lsn.board.model.Card;
 import com.lsn.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.smartcardio.Card;
-import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
@@ -17,26 +17,29 @@ public class BoardController {
 
     @GetMapping("/")
     public ResponseEntity<List<Board>> listBoard() {
-        return ResponseEntity.ok().body(new ArrayList<Board>());
+        return ResponseEntity.ok().body(boardService.listBoard());
     }
     @GetMapping("/{id}")
     public ResponseEntity<Board> acessBoard(@PathVariable Long id) {
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(boardService.acessBoard(id));
     }
     @PostMapping("/create")
     public ResponseEntity<Board> createBoard(@RequestBody Board board) {
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(boardService.createBoard(board));
     }
     @DeleteMapping("/{id}/remove")
-    public ResponseEntity<Board> deleteBoard(@PathVariable String id) {
+    public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
+        boardService.deleteBoard(id);
         return ResponseEntity.ok().body(null);
     }
     @PutMapping("/{id}/update")
-    public ResponseEntity<Board> updateTitetleBoard(@PathVariable String id, @RequestBody String title) {
+    public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody String title) {
+        boardService.updateTitetleBoard(id, title);
         return ResponseEntity.ok().body(null);
     }
     @PostMapping("/{id}/addCard")
-    public ResponseEntity<Board> addCard(@PathVariable String id, @RequestBody Card card, Long idCollum) {
+    public ResponseEntity<Board> addCard(@RequestBody Card card, Long idCollum) {
+        boardService.addCard(card,idCollum);
         return ResponseEntity.ok().body(null);
     }
     @PostMapping("/{id}/")
