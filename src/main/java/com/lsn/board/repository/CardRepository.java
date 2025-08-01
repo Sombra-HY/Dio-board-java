@@ -1,8 +1,8 @@
 package com.lsn.board.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import com.lsn.board.model.Card;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.smartcardio.Card;
 
-public interface CardRepository extends CrudRepository<Card, Long> {
+public interface CardRepository extends JpaRepository<Card, Long> {
 }

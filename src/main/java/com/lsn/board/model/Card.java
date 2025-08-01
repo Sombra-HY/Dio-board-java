@@ -1,9 +1,6 @@
 package com.lsn.board.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-class Card {
+public class Card {
     @Id
     private Long id;
     private String title;
@@ -21,4 +18,9 @@ class Card {
 
     private Boolean isBlock;
     private List<LocalTime> listDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "collumBoard_id")
+    private CollumBoard collumBoard;
+
 }

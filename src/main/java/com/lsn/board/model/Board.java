@@ -15,7 +15,8 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "board")
     private List<CollumBoard> collumBoardList;
 
 }
