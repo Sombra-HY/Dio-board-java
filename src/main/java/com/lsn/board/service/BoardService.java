@@ -1,21 +1,24 @@
 package com.lsn.board.service;
 
 
+import com.lsn.board.dto.BoardDto;
+import com.lsn.board.mapper.BoardMapper;
 import com.lsn.board.model.Board;
 
 import com.lsn.board.repository.BoardRepository;
-import com.lsn.board.repository.CollumRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final BoardMapper mapperBoard;
 
     // delete
 
@@ -23,30 +26,19 @@ public class BoardService {
         return boardRepository.findAll();
     }
     public Board acessBoard(@PathVariable Long id) {
-        if(boardRepository.existsById(id)) {
-            return boardRepository.findById(id).get();
-        }
-
-        return null;
+        return boardRepository.findById(id).orElseThrow();
     }
-    public Board createBoard(@RequestBody Board board) {
+    public Board createBoard(@RequestBody BoardDto boardDto) {
+        Board  board = mapperBoard.toBoard(boardDto);
         return boardRepository.save(board);
     }
     public void deleteBoard(@PathVariable Long id) {
-        if (boardRepository.existsById(id)) {
-            boardRepository.deleteById(id);
-            return;
-        }
-        return;
+        boardRepository.findById(id).ifPresent(board -> boardRepository.deleteById(id));
     }
-    public void updateTitetleBoard(@PathVariable Long id, @RequestBody String title) {
-        if(boardRepository.existsById(id)){
-            var board = boardRepository.findById(id).get();
-            board.setTitle(title);
+    public void updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto boardDto) {
+        boardRepository.findById(id).ifPresent(board -> {
+            board.setTitle(boardDto.getTitle());
             boardRepository.save(board);
-            return;
-        }
-
-        return;
+        });
     }
 }
