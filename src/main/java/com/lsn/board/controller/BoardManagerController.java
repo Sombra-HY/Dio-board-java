@@ -1,9 +1,8 @@
 package com.lsn.board.controller;
 
+import com.lsn.board.dto.BoardDto;
 import com.lsn.board.model.Board;
-import com.lsn.board.model.Card;
 import com.lsn.board.service.BoardService;
-import com.lsn.board.service.ManagerTasksService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +12,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/boards")
-public class BoardController {
+public class BoardManagerController {
     private final BoardService boardService;
-    private final ManagerTasksService managerTasksService;
 
     @GetMapping("")
     public ResponseEntity<List<Board>> listBoard() {
@@ -26,7 +24,7 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.acessBoard(id));
     }
     @PostMapping("")
-    public ResponseEntity<Board> createBoard(@RequestBody Board board) {
+    public ResponseEntity<Board> createBoard(@RequestBody BoardDto board) {
         return ResponseEntity.ok().body(boardService.createBoard(board));
     }
     @DeleteMapping("")
@@ -35,19 +33,11 @@ public class BoardController {
         return ResponseEntity.ok().body(null);
     }
     @PutMapping("")
-    public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody String title) {
+    public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto title) {
         boardService.updateTitetleBoard(id, title);
         return ResponseEntity.ok().body(null);
     }
-    @PostMapping("/{id}/addCard")
-    public ResponseEntity<Board> addCard(@RequestBody Card card, Long idCollum) {
-        managerTasksService.addCard(card,idCollum);
-        return ResponseEntity.ok().body(null);
-    }
-    @PostMapping("/{id}/")
-    public ResponseEntity<Board> moveToNextColumm(@PathVariable String id, @RequestBody Long idCollum, @RequestBody Long card) {
-        return ResponseEntity.ok().body(null);
-    }
+
 }
 
 
