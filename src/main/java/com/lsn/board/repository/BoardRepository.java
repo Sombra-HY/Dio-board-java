@@ -4,6 +4,6 @@ import com.lsn.board.model.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public class BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long> {
 
 }
