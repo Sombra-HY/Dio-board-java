@@ -9,6 +9,4 @@ public class CardDto {
     private String title;
     private String description;
 
-    private CollumBoardDto collumBoard;
-
 }
