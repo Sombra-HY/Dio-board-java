@@ -32,7 +32,7 @@ public class TasksController {
         return ResponseEntity.ok().body(null);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping("/moveto")
     public ResponseEntity<Board> moveToNextColumm(@PathVariable String id, @RequestBody Long idCollum, @RequestBody Long card) {
         return ResponseEntity.ok().body(null);
     }
