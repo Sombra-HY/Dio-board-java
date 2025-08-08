@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,6 +29,7 @@ public class BoardService {
     }
     public Board createBoard(@RequestBody BoardDto boardDto) {
         Board  board = mapperBoard.toBoard(boardDto);
+
         return boardRepository.save(board);
     }
     public void deleteBoard(@PathVariable Long id) {

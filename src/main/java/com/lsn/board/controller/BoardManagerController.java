@@ -27,12 +27,12 @@ public class BoardManagerController {
     public ResponseEntity<Board> createBoard(@RequestBody BoardDto board) {
         return ResponseEntity.ok().body(boardService.createBoard(board));
     }
-    @DeleteMapping("")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
         boardService.deleteBoard(id);
         return ResponseEntity.ok().body(null);
     }
-    @PutMapping("")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto title) {
         boardService.updateTitetleBoard(id, title);
         return ResponseEntity.ok().body(null);
