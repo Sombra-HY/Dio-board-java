@@ -2,10 +2,12 @@ package com.lsn.board.service;
 
 
 import com.lsn.board.dto.BoardDto;
+import com.lsn.board.exception.business.NotFoundException;
 import com.lsn.board.mapper.BoardMapper;
 import com.lsn.board.model.Board;
 
 import com.lsn.board.repository.BoardRepository;
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -25,20 +27,23 @@ public class BoardService {
         return boardRepository.findAll();
     }
     public Board acessBoard(@PathVariable Long id) {
-        return boardRepository.findById(id).orElseThrow();
+        return boardRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Not found: " + id));
     }
     public Board createBoard(@RequestBody BoardDto boardDto) {
         Board  board = mapperBoard.toBoard(boardDto);
-
         return boardRepository.save(board);
     }
     public void deleteBoard(@PathVariable Long id) {
-        boardRepository.findById(id).ifPresent(board -> boardRepository.deleteById(id));
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Not found ID: " + id ));
+        boardRepository.delete(board);
     }
     public void updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto boardDto) {
-        boardRepository.findById(id).ifPresent(board -> {
-            board.setTitle(boardDto.getTitle());
-            boardRepository.save(board);
-        });
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Not found ID: " + id ));
+
+        board.setTitle(boardDto.getTitle());
+        boardRepository.save(board);
     }
 }
