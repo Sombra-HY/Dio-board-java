@@ -1,6 +1,7 @@
 package com.lsn.board.service;
 
 import com.lsn.board.dto.CardDto;
+import com.lsn.board.exception.business.NotFoundException;
 import com.lsn.board.mapper.BoardMapper;
 import com.lsn.board.model.Board;
 import com.lsn.board.model.CollumBoard;
@@ -20,7 +21,7 @@ public class ManagerTasksService {
 
     public CollumBoard addCard(CardDto card, Long idCollum) {
         CollumBoard collum = collumRepository.findById(idCollum)
-                .orElseThrow();
+                .orElseThrow(()-> new NotFoundException("not found id" + idCollum));
 
         collum.getCardList().add(boardMapper.toCard(card));
         return collumRepository.save(collum);
