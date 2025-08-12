@@ -35,7 +35,7 @@ public class BoardManagerController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto title) {
         boardService.updateTitetleBoard(id, title);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.noContent().build();
     }
 
 }
