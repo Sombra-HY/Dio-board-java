@@ -7,7 +7,6 @@ import com.lsn.board.mapper.BoardMapper;
 import com.lsn.board.model.Board;
 
 import com.lsn.board.repository.BoardRepository;
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
