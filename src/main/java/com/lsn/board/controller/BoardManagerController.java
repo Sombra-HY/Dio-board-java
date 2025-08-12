@@ -30,7 +30,7 @@ public class BoardManagerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
         boardService.deleteBoard(id);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.noContent().build();
     }
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTitetleBoard(@PathVariable Long id, @RequestBody BoardDto title) {
